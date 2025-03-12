@@ -7,7 +7,7 @@ func CleanInput(text string) []string {
 	words := strings.Split(trimmedText, " ")
 
 	for i, word := range words {
-		words[i] = strings.Title(strings.ToLower(word))
+		words[i] = strings.ToLower(word)
 	}
 
 	return words
