@@ -12,6 +12,6 @@ func GetCommands() map[string]CliCommand {
 		"exit": ExitCommand{},
 		"help": HelpCommand{},
 		"map":  pokeMapCommand,
-		"mapb": &PokeMapBackwardCommand{pm: pokeMapCommand},
+		"mapb": &PokeMapBackwardCommand{Pm: pokeMapCommand},
 	}
 }

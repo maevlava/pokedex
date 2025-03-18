@@ -6,7 +6,7 @@ import (
 )
 
 type PokeMapBackwardCommand struct {
-	pm *PokeMapCommand
+	Pm *PokeMapCommand
 }
 
 func (n *PokeMapBackwardCommand) Name() string {
@@ -18,15 +18,13 @@ func (n *PokeMapBackwardCommand) Description() string {
 }
 
 func (n *PokeMapBackwardCommand) Execute() error {
-	n.pm.mu.Lock()
-	loadedCount := len(n.pm.PokeMaps)
+	loadedCount := len(n.Pm.PokeMaps)
 	if loadedCount < 20 {
-		n.pm.mu.Unlock()
 		return fmt.Errorf("map is not ready yet")
 	}
 	totalPage := (loadedCount + 19) / 20
 
-	lastPrintedPage := (n.pm.Page + totalPage - 1) % totalPage
+	lastPrintedPage := (n.Pm.Page + totalPage - 1) % totalPage
 
 	var newPage int
 	if lastPrintedPage == 0 {
@@ -35,7 +33,7 @@ func (n *PokeMapBackwardCommand) Execute() error {
 		newPage = lastPrintedPage - 1
 	}
 
-	n.pm.Page = newPage + 1
+	n.Pm.Page = newPage + 1
 
 	start := newPage * 20
 	end := start + 20
@@ -43,8 +41,7 @@ func (n *PokeMapBackwardCommand) Execute() error {
 		end = loadedCount
 	}
 	currentMaps := make([]model.Location, end-start)
-	copy(currentMaps, n.pm.PokeMaps[start:end])
-	n.pm.mu.Unlock()
+	copy(currentMaps, n.Pm.PokeMaps[start:end])
 
 	fmt.Printf("--- Page %d/%d ---\n", newPage+1, totalPage)
 	for _, m := range currentMaps {

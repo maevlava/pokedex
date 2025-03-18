@@ -1,7 +1,9 @@
 package tests
 
 import (
+	"github.com/maevlava/pokedex/commands"
 	util "github.com/maevlava/pokedex/utils"
+	"github.com/stretchr/testify/assert"
 	"testing"
 )
 
@@ -36,24 +38,67 @@ func TestCleanInput(t *testing.T) {
 	}
 }
 
-//func TestMapCommand(t *testing.T) {
-//	testMap := []string{"canalave-city-area", "eterna-city-area", "pastoria-city-area", "sunyshore-city-area",
-//		"sinnoh-pokemon-league-area", "oreburgh-mine-1f", "oreburgh-mine-b1f", "valley-windworks-area",
-//		"eterna-forest-area", "fuego-ironworks-area", "mt-coronet-1f-route-207", "mt-coronet-2f", "mt-coronet-3f",
-//		"mt-coronet-exterior-snowfall", "mt-coronet-exterior-blizzard", "mt-coronet-4f", "mt-coronet-4f-small-room", "mt-coronet-5f",
-//		"mt-coronet-6f", "mt-coronet-1f-from-exterior"}
-//
-//	cases := []struct {
-//		input    string
-//		expected []string
-//	}{
-//		{
-//			input:    "map",
-//			expected: testMap,
-//		},
-//	}
-//
-//	for _, c := range cases {
-//
-//	}
-//}
+func TestMapCommand(t *testing.T) {
+	testMapB := []string{"canalave-city-area", "eterna-city-area", "pastoria-city-area", "sunyshore-city-area",
+		"sinnoh-pokemon-league-area", "oreburgh-mine-1f", "oreburgh-mine-b1f", "valley-windworks-area",
+		"eterna-forest-area", "fuego-ironworks-area", "mt-coronet-1f-route-207", "mt-coronet-2f", "mt-coronet-3f",
+		"mt-coronet-exterior-snowfall", "mt-coronet-exterior-blizzard", "mt-coronet-4f", "mt-coronet-4f-small-room", "mt-coronet-5f",
+		"mt-coronet-6f", "mt-coronet-1f-from-exterior"}
+	testMap := []string{
+		"mt-coronet-1f-route-216",
+		"mt-coronet-1f-route-211",
+		"mt-coronet-b1f",
+		"great-marsh-area-1",
+		"great-marsh-area-2",
+		"great-marsh-area-3",
+		"great-marsh-area-4",
+		"great-marsh-area-5",
+		"great-marsh-area-6",
+		"solaceon-ruins-2f",
+		"solaceon-ruins-1f",
+		"solaceon-ruins-b1f-a",
+		"solaceon-ruins-b1f-b",
+		"solaceon-ruins-b1f-c",
+		"solaceon-ruins-b2f-a",
+		"solaceon-ruins-b2f-b",
+		"solaceon-ruins-b2f-c",
+		"solaceon-ruins-b3f-a",
+		"solaceon-ruins-b3f-b",
+		"solaceon-ruins-b3f-c",
+	}
+
+	cases := []struct {
+		input    string
+		expected []string
+	}{
+		{
+			input:    "mapb",
+			expected: testMapB,
+		},
+		{
+			input:    "map",
+			expected: testMap,
+		},
+	}
+
+	//test case 1
+	t.Run(cases[0].input, func(t *testing.T) {
+		cmd := commands.LoadMap()
+		err := cmd.Execute()
+		assert.NoErrorf(t, err, "Execute() Should not return an error")
+		err = cmd.Execute()
+		assert.NoErrorf(t, err, "Execute() Should not return an error")
+
+		cmdBackward := commands.PokeMapBackwardCommand{Pm: cmd}
+		err = cmdBackward.Execute()
+		assert.NoErrorf(t, err, "Execute() Should not return an error")
+
+		var actualNames []string
+		for _, loc := range cmd.PokeMaps {
+			actualNames = append(actualNames, loc.Name)
+		}
+
+		assert.Subset(t, actualNames, testMapB, cases[0].expected, "Returned map names do not match expected values")
+	})
+
+}
