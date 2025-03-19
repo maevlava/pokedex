@@ -21,7 +21,7 @@ func main() {
 			fmt.Println("Unknown command")
 			continue
 		}
-		if err := cmd.Execute(); err != nil {
+		if err := cmd.Execute(input[1:]...); err != nil {
 			fmt.Println(err)
 		}
 	}

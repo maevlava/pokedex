@@ -17,7 +17,7 @@ func (n *PokeMapBackwardCommand) Description() string {
 	return "Return previous maps in pokemon"
 }
 
-func (n *PokeMapBackwardCommand) Execute() error {
+func (n *PokeMapBackwardCommand) Execute(...string) error {
 	loadedCount := len(n.Pm.PokeMaps)
 	if loadedCount < 20 {
 		return fmt.Errorf("map is not ready yet")

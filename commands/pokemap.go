@@ -30,7 +30,7 @@ func (n *PokeMapCommand) Description() string {
 	return "Return maps in pokemon"
 }
 
-func (n *PokeMapCommand) Execute() error {
+func (n *PokeMapCommand) Execute(...string) error {
 	if len(n.PokeMaps) == 0 {
 		return fmt.Errorf("no maps loaded")
 	}

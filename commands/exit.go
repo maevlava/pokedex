@@ -15,7 +15,7 @@ func (e ExitCommand) Description() string {
 	return "Exit the Pokedex"
 }
 
-func (e ExitCommand) Execute() error {
+func (e ExitCommand) Execute(...string) error {
 	fmt.Println("Closing the Pokedex... Goodbye!")
 	os.Exit(0)
 	return nil

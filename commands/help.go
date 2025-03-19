@@ -10,7 +10,7 @@ func (h HelpCommand) Name() string {
 func (h HelpCommand) Description() string {
 	return "Displays a help message"
 }
-func (h HelpCommand) Execute() error {
+func (h HelpCommand) Execute(...string) error {
 	commands := GetCommands()
 	fmt.Printf("Welcome to the Pokedex!\nUsage:\n")
 	for _, cmd := range commands {

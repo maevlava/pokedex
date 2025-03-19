@@ -8,7 +8,7 @@ import (
 type CliCommand interface {
 	Name() string
 	Description() string
-	Execute() error
+	Execute(...string) error
 }
 
 func GetCommands() map[string]CliCommand {
@@ -16,9 +16,10 @@ func GetCommands() map[string]CliCommand {
 	pokeMapCommand := LoadMap(cache)
 
 	return map[string]CliCommand{
-		"exit": ExitCommand{},
-		"help": HelpCommand{},
-		"map":  pokeMapCommand,
-		"mapb": &PokeMapBackwardCommand{Pm: pokeMapCommand},
+		"exit":    ExitCommand{},
+		"help":    HelpCommand{},
+		"map":     pokeMapCommand,
+		"mapb":    &PokeMapBackwardCommand{Pm: pokeMapCommand},
+		"explore": &ExploreCommand{},
 	}
 }

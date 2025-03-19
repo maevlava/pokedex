@@ -2,9 +2,11 @@ package tests
 
 import (
 	"github.com/maevlava/pokedex/commands"
+	"github.com/maevlava/pokedex/internal/pokecache"
 	util "github.com/maevlava/pokedex/utils"
 	"github.com/stretchr/testify/assert"
 	"testing"
+	"time"
 )
 
 func TestCleanInput(t *testing.T) {
@@ -83,7 +85,8 @@ func TestMapCommand(t *testing.T) {
 
 	//test case 1
 	t.Run(cases[0].input, func(t *testing.T) {
-		cmd := commands.LoadMap()
+		cache := pokecache.NewCache(10 * time.Minute)
+		cmd := commands.LoadMap(cache)
 		err := cmd.Execute()
 		assert.NoErrorf(t, err, "Execute() Should not return an error")
 		err = cmd.Execute()
