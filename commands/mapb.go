@@ -45,7 +45,7 @@ func (n *PokeMapBackwardCommand) Execute() error {
 
 	fmt.Printf("--- Page %d/%d ---\n", newPage+1, totalPage)
 	for _, m := range currentMaps {
-		fmt.Printf("Location: %s (ID: %d)\n", m.Name, m.Id)
+		fmt.Printf("Location: %s (ID: %d)\n", m.Name, m.ID)
 	}
 
 	return nil

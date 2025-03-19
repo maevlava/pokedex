@@ -1,5 +1,10 @@
 package commands
 
+import (
+	"github.com/maevlava/pokedex/internal/pokecache"
+	"time"
+)
+
 type CliCommand interface {
 	Name() string
 	Description() string
@@ -7,7 +12,9 @@ type CliCommand interface {
 }
 
 func GetCommands() map[string]CliCommand {
-	pokeMapCommand := LoadMap()
+	cache := pokecache.NewCache(10 * time.Minute)
+	pokeMapCommand := LoadMap(cache)
+
 	return map[string]CliCommand{
 		"exit": ExitCommand{},
 		"help": HelpCommand{},
