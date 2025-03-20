@@ -4,6 +4,7 @@ import (
 	"bufio"
 	"fmt"
 	command "github.com/maevlava/pokedex/commands"
+	"github.com/maevlava/pokedex/model"
 	util "github.com/maevlava/pokedex/utils"
 	"os"
 )
@@ -21,7 +22,7 @@ func main() {
 			fmt.Println("Unknown command")
 			continue
 		}
-		if err := cmd.Execute(input[1:]...); err != nil {
+		if err := cmd.Execute(&model.User{}, input[1:]...); err != nil {
 			fmt.Println(err)
 		}
 	}

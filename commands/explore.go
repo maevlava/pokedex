@@ -26,7 +26,7 @@ func (e *ExploreCommand) Description() string {
 	return "Explore the pokemons"
 }
 
-func (e *ExploreCommand) Execute(args ...string) error {
+func (e *ExploreCommand) Execute(user *model.User, args ...string) error {
 	if len(args) != 1 {
 		return fmt.Errorf("expected 1 arguments, got %d", len(args))
 	}
@@ -40,18 +40,9 @@ func (e *ExploreCommand) Execute(args ...string) error {
 	for _, encounter := range areas.PokemonEncounters {
 		e.Pokemons = append(e.Pokemons, encounter.Pokemon)
 	}
-	printPokemonEncounters(e.Pokemons)
 
 	return nil
 }
-
-func printPokemonEncounters(pokemons []model.Pokemon) {
-	fmt.Println("Found Pokemon:")
-	for _, pokemon := range pokemons {
-		fmt.Println("- ", pokemon.Name)
-	}
-}
-
 func fetchPokemonAreas(url string, client *http.Client) (LocationAreasResponse, error) {
 	resp, err := client.Get(url)
 	if err != nil {

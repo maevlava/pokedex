@@ -3,6 +3,7 @@ package tests
 import (
 	"github.com/maevlava/pokedex/commands"
 	"github.com/maevlava/pokedex/internal/pokecache"
+	"github.com/maevlava/pokedex/model"
 	util "github.com/maevlava/pokedex/utils"
 	"github.com/stretchr/testify/assert"
 	"testing"
@@ -87,13 +88,13 @@ func TestMapCommand(t *testing.T) {
 	t.Run(cases[0].input, func(t *testing.T) {
 		cache := pokecache.NewCache(10 * time.Minute)
 		cmd := commands.LoadMap(cache)
-		err := cmd.Execute()
+		err := cmd.Execute(&model.User{})
 		assert.NoErrorf(t, err, "Execute() Should not return an error")
-		err = cmd.Execute()
+		err = cmd.Execute(&model.User{})
 		assert.NoErrorf(t, err, "Execute() Should not return an error")
 
 		cmdBackward := commands.PokeMapBackwardCommand{Pm: cmd}
-		err = cmdBackward.Execute()
+		err = cmdBackward.Execute(&model.User{})
 		assert.NoErrorf(t, err, "Execute() Should not return an error")
 
 		var actualNames []string

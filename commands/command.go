@@ -2,13 +2,14 @@ package commands
 
 import (
 	"github.com/maevlava/pokedex/internal/pokecache"
+	"github.com/maevlava/pokedex/model"
 	"time"
 )
 
 type CliCommand interface {
 	Name() string
 	Description() string
-	Execute(...string) error
+	Execute(user *model.User, args ...string) error
 }
 
 func GetCommands() map[string]CliCommand {
@@ -21,5 +22,6 @@ func GetCommands() map[string]CliCommand {
 		"map":     pokeMapCommand,
 		"mapb":    &PokeMapBackwardCommand{Pm: pokeMapCommand},
 		"explore": &ExploreCommand{},
+		"catch":   &CatchCommand{},
 	}
 }

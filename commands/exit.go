@@ -2,6 +2,7 @@ package commands
 
 import (
 	"fmt"
+	"github.com/maevlava/pokedex/model"
 	"os"
 )
 
@@ -15,7 +16,7 @@ func (e ExitCommand) Description() string {
 	return "Exit the Pokedex"
 }
 
-func (e ExitCommand) Execute(...string) error {
+func (e ExitCommand) Execute(user *model.User, args ...string) error {
 	fmt.Println("Closing the Pokedex... Goodbye!")
 	os.Exit(0)
 	return nil
