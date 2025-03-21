@@ -38,9 +38,9 @@ func (e *CatchCommand) Execute(user *model.User, args ...string) error {
 	// if success add it to user's Pokedex
 	if isSuccess {
 		user.Pokedex = append(user.Pokedex, pokemon)
-		fmt.Printf("%s was caught!", pokemon.Name)
+		fmt.Printf("%s was caught!\n", pokemon.Name)
 	} else {
-		fmt.Printf("%s escaped!", pokemon.Name)
+		fmt.Printf("%s escaped!\n", pokemon.Name)
 	}
 
 	return nil

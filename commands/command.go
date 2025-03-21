@@ -23,5 +23,6 @@ func GetCommands() map[string]CliCommand {
 		"mapb":    &PokeMapBackwardCommand{Pm: pokeMapCommand},
 		"explore": &ExploreCommand{},
 		"catch":   &CatchCommand{},
+		"inspect": &InspectCommand{},
 	}
 }
