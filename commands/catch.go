@@ -39,6 +39,7 @@ func (e *CatchCommand) Execute(user *model.User, args ...string) error {
 	if isSuccess {
 		user.Pokedex = append(user.Pokedex, pokemon)
 		fmt.Printf("%s was caught!\n", pokemon.Name)
+		fmt.Println("You may now inspect it with the inspect command.")
 	} else {
 		fmt.Printf("%s escaped!\n", pokemon.Name)
 	}

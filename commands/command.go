@@ -24,5 +24,6 @@ func GetCommands() map[string]CliCommand {
 		"explore": &ExploreCommand{},
 		"catch":   &CatchCommand{},
 		"inspect": &InspectCommand{},
+		"pokedex": &PokedexCommand{},
 	}
 }
